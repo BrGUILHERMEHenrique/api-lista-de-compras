@@ -14,4 +14,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     @Override
     <S extends Usuario> S save(S entity);
+
+    Usuario findByEmail(String email);
 }

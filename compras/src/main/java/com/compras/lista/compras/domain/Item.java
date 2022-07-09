@@ -3,8 +3,8 @@ package com.compras.lista.compras.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "item")
-public class item {
+@Table(name = "Item")
+public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,14 +19,19 @@ public class item {
     @Column
     private Double preco;
 
-    public item() {
+    @ManyToOne
+    @JoinColumn(name = "id_lista")
+    Lista lista;
+
+    public Item() {
     }
 
-    public item(Long id, String nome, int qtd, Double preco) {
+    public Item(Long id, String nome, int qtd, Double preco, Lista lista) {
         this.id = id;
         this.nome = nome;
         this.qtd = qtd;
         this.preco = preco;
+        this.lista = lista;
     }
 
     public Long getId() {
@@ -59,5 +64,13 @@ public class item {
 
     public void setPreco(Double preco) {
         this.preco = preco;
+    }
+
+    public Lista getLista() {
+        return lista;
+    }
+
+    public void setLista(Lista lista) {
+        this.lista = lista;
     }
 }
