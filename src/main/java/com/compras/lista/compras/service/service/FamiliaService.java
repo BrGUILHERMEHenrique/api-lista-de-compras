@@ -1,6 +1,7 @@
 package com.compras.lista.compras.service.service;
 
 import com.compras.lista.compras.domain.Familia;
+import com.compras.lista.compras.domain.Lista;
 import com.compras.lista.compras.infrastructure.exceptions.NotFoundException;
 import com.compras.lista.compras.infrastructure.repositories.FamiliaRepository;
 import net.bytebuddy.implementation.bytecode.Throw;
@@ -15,6 +16,8 @@ public class FamiliaService {
 
     @Autowired
     FamiliaRepository familiaRepository;
+    @Autowired
+    ListaService listaService;
 
     public Familia findById(Long id) throws NotFoundException {
         Optional<Familia> f = familiaRepository.findById(id);
@@ -48,5 +51,15 @@ public class FamiliaService {
         //TODO implementar validaçao por equals
 
         return familiaRepository.save(familiaAtualizada);
+    }
+
+    public boolean finalizarCompras(Long idLista) throws NotFoundException {
+        Lista lista = listaService.findById(idLista);
+        try {
+            listaService.createLista(lista);
+            return true;
+        }catch(Exception e) {
+            return false;
+        }
     }
 }
