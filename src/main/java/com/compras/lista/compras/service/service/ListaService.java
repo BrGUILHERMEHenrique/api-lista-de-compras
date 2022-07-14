@@ -24,8 +24,8 @@ public class ListaService {
         }
     }
 
-    public void createLista(Lista lista){
-        listaRepository.save(lista);
+    public Lista createLista(Lista lista){
+        return listaRepository.save(lista);
     }
 
     public boolean delete(Long id){

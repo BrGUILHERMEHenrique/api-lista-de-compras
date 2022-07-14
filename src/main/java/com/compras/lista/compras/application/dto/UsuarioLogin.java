@@ -2,10 +2,15 @@ package com.compras.lista.compras.application.dto;
 
 import org.springframework.stereotype.Component;
 
+@Component
 public class UsuarioLogin {
 
     private String email;
     private String senha;
+
+    public UsuarioLogin() {
+
+    }
 
     public UsuarioLogin(String email, String senha) {
         this.email = email;

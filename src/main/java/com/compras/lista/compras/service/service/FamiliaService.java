@@ -53,8 +53,8 @@ public class FamiliaService {
         return familiaRepository.save(familiaAtualizada);
     }
 
-    public boolean finalizarCompras(Long idLista) throws NotFoundException {
-        Lista lista = listaService.findById(idLista);
+    public boolean finalizarCompras(int idLista) throws NotFoundException {
+        Lista lista = listaService.findById((long) idLista);
         try {
             listaService.createLista(lista);
             return true;
