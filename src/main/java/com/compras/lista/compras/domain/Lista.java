@@ -17,10 +17,14 @@ public class Lista {
     public Lista() {
     }
 
-    public Lista(Long id, Long id_familia, Boolean finalizada, Double valorTotal) {
+    public Lista(Long id, Boolean finalizada, Double valorTotal) {
         this.id = id;
         this.finalizada = finalizada;
-        this.ValorTotal = valorTotal;
+        ValorTotal = valorTotal;
+    }
+
+    public Lista(Long id) {
+        this.id = id;
     }
 
     public Long getId() {

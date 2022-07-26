@@ -38,4 +38,9 @@ public class UsuarioController {
             return ResponseEntity.badRequest().body("N]ao foi possivel efetuar o login");
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id){
+        return ResponseEntity.ok(usuarioService.delete(id));
+    }
 }

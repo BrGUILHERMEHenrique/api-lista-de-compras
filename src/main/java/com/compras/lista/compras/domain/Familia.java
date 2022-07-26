@@ -16,6 +16,10 @@ public class Familia {
     @JoinColumn(name = "id_lista")
     private Lista lista;
 
+    public Familia(long id) {
+        this.id = id;
+    }
+
     public Familia() {
     }
 

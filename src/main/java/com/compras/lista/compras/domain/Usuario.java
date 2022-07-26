@@ -22,6 +22,10 @@ public class Usuario {
     public Usuario() {
     }
 
+    public Usuario(long id) {
+        this.id = id;
+    }
+
     public Usuario(long id, String nome, String email, String senha, Familia familia) {
         this.id = id;
         this.nome = nome;

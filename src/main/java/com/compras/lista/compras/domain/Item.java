@@ -23,6 +23,10 @@ public class Item {
     @JoinColumn(name = "id_lista")
     Lista lista;
 
+    public Item(Long id) {
+        this.id = id;
+    }
+
     public Item() {
     }
 

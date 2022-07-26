@@ -6,6 +6,7 @@ import com.compras.lista.compras.infrastructure.repositories.ListaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,6 +15,9 @@ public class ListaService {
     @Autowired
     ListaRepository listaRepository;
 
+    public List<Lista> listarTodos(){
+        return listaRepository.findAll();
+    }
     public Lista findById(Long id) throws NotFoundException {
         Optional<Lista> l = listaRepository.findById(id);
 
