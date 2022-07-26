@@ -2,6 +2,8 @@ package com.compras.lista.compras.service.controller;
 
 import com.compras.lista.compras.application.dto.UsuarioLogin;
 import com.compras.lista.compras.domain.Usuario;
+import com.compras.lista.compras.infrastructure.exceptions.NotFoundException;
+import com.compras.lista.compras.infrastructure.exceptions.UsuarioNotFoundException;
 import com.compras.lista.compras.service.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -39,7 +41,12 @@ public class UsuarioController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @PatchMapping("/atualizar/{id}")
+    public ResponseEntity<?> atualizar(@RequestBody Usuario usuario, @PathVariable Long id) throws NotFoundException {
+        return ResponseEntity.ok(usuarioService.atualizar(usuario, id));
+    }
+
+    @DeleteMapping("/apagar/{id}")
     public ResponseEntity delete(@PathVariable Long id){
         return ResponseEntity.ok(usuarioService.delete(id));
     }

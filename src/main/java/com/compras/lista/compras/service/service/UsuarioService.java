@@ -2,6 +2,7 @@ package com.compras.lista.compras.service.service;
 
 import com.compras.lista.compras.application.dto.UsuarioLogin;
 import com.compras.lista.compras.domain.Usuario;
+import com.compras.lista.compras.infrastructure.exceptions.NotFoundException;
 import com.compras.lista.compras.infrastructure.exceptions.UsuarioNotFoundException;
 import com.compras.lista.compras.infrastructure.repositories.UsuarioRepository;
 import com.compras.lista.compras.service.configJWT.JWTUtils;
@@ -26,19 +27,19 @@ public class UsuarioService {
     @Autowired
     private AuthenticationManager manager;
 
-    private String generateToken(Usuario usuario) throws Exception {
+    private String generateToken(Usuario usuario) throws NotFoundException {
         try {
             manager.authenticate(
                     new UsernamePasswordAuthenticationToken(usuario.getEmail(), usuario.getSenha())
             );
         } catch(Exception e){
-            throw new Exception("Usuario nao encontrado");
+            throw new NotFoundException("Usuario nao encontrado");
         }
 
         return jwtUtils.generateToken(usuario.getEmail());
     }
 
-    public String login(UsuarioLogin login) throws Exception {
+    public String login(UsuarioLogin login) throws NotFoundException {
         Usuario usuario = usuarioRepository.findByEmail(login.getEmail());
         return generateToken(usuario);
     }
@@ -50,10 +51,10 @@ public class UsuarioService {
         return generateToken(usuarioRepository.save(user));
     }
 
-    public Usuario findById(Long id) throws UsuarioNotFoundException {
+    public Usuario findById(Long id) throws NotFoundException {
         Optional<Usuario> u = usuarioRepository.findById(id);
         if(u.isEmpty()){
-            throw new UsuarioNotFoundException("Usuario nao encontrado na base de dados");
+            throw new NotFoundException("Usuario nao encontrado na base de dados");
         }
         return u.get();
     }
@@ -67,8 +68,8 @@ public class UsuarioService {
         }
     }
 
-    public Usuario atualizar(Usuario usuario) throws UsuarioNotFoundException {
-        Usuario usuarioAtualizado = findById(usuario.getId());
+    public Usuario atualizar(Usuario usuario, Long id) throws NotFoundException {
+        Usuario usuarioAtualizado = findById(id);
 
         if (usuario.getEmail() != null) usuarioAtualizado.setEmail(usuario.getEmail());
         if (usuario.getNome() != null) usuarioAtualizado.setNome(usuario.getNome());

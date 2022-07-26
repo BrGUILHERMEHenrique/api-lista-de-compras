@@ -8,6 +8,7 @@ import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 
@@ -27,6 +28,10 @@ public class FamiliaService {
         } else {
             return f.get();
         }
+    }
+
+    public List<Familia> recuperarTodos(){
+        return familiaRepository.findAll();
     }
 
     public void createFamilia(Familia familia){
@@ -53,10 +58,16 @@ public class FamiliaService {
         return familiaRepository.save(familiaAtualizada);
     }
 
-    public boolean finalizarCompras(int idLista) throws NotFoundException {
-        Lista lista = listaService.findById((long) idLista);
+    public boolean finalizarCompras(Long id) throws NotFoundException {
+        Familia familia = findById(id);
+        Lista lista = familia.getLista();
+        Lista listaBase = new Lista(null, false, 0.0);
         try {
-            listaService.createLista(lista);
+            lista.setFinalizada(true);
+            listaService.atualizar(lista);
+
+            familia.setLista(listaService.createLista(listaBase));
+            autalizar(familia);
             return true;
         }catch(Exception e) {
             return false;

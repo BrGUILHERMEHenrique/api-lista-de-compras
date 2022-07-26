@@ -20,18 +20,37 @@ public class FamiliaController {
 
         return ResponseEntity.accepted().body(service.findById(id));
     }
+
+    @PatchMapping("/atualizar")
+    public ResponseEntity<?> atualizar(@RequestBody Familia familia) throws NotFoundException {
+        return ResponseEntity.ok(service.autalizar(familia));
+    }
+    @GetMapping()
+    public ResponseEntity<?> recuperarTodos(){
+        return ResponseEntity.ok(service.recuperarTodos());
+    }
+
     @PostMapping("/cadastrar")
     public ResponseEntity<?> cadastrarFamilia(@RequestBody Familia familia) {
         service.createFamilia(familia);
         return ResponseEntity.ok("Familia cadastrada com sucesso");
     }
 
-    @PostMapping("/finalizarCompras/{idLista}")
-    public ResponseEntity<?> finalizarCompras(@PathVariable int idLista) throws NotFoundException {
-        if(service.finalizarCompras(idLista)){
+    @PostMapping("/finalizarCompras/{id}")
+    public ResponseEntity<?> finalizarCompras(@PathVariable Long id) throws NotFoundException {
+        if(service.finalizarCompras(id)){
             return ResponseEntity.accepted().body("Lista finalizada e atualizada com sucesso");
         } else {
             return ResponseEntity.badRequest().body("Nao foi possivel finalizar a comprar e criar uma lista nova.");
+        }
+    }
+
+    @DeleteMapping("/apagar/{id}")
+    public ResponseEntity<?> apagar(@PathVariable Long id){
+        if(service.delete(id)){
+            return ResponseEntity.accepted().body("Familia retirada do app com sucesso");
+        } else {
+            return ResponseEntity.badRequest().body("Nao foi possivel retirar a familia do app");
         }
     }
 }

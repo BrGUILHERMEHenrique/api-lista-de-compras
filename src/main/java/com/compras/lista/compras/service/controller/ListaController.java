@@ -28,4 +28,18 @@ public class ListaController {
     public ResponseEntity<?> cadastrarFamilia(@RequestBody Lista lista){
         return ResponseEntity.accepted().body(service.createLista(lista));
     }
+
+    @PatchMapping("/atualizar")
+    public ResponseEntity<?> atualizar(@RequestBody Lista lista) throws NotFoundException {
+        return ResponseEntity.accepted().body(service.atualizar(lista));
+    }
+
+    @DeleteMapping("/apagar/{id}")
+    public ResponseEntity<?> apagar(@PathVariable Long id){
+        if (service.delete(id)){
+            return ResponseEntity.accepted().body("Lista deletada com sucesso");
+        } else {
+            return ResponseEntity.badRequest().body("Nao foi possivel apagar a lista");
+        }
+    }
 }
