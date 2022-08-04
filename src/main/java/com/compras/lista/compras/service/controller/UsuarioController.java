@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping({ "/usuario" })
@@ -32,10 +33,11 @@ public class UsuarioController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody UsuarioLogin login) throws Exception {
         String token = usuarioService.login(login);
+        Usuario usuario = usuarioService.findByEmail(login.getEmail());
         HttpHeaders headers = new HttpHeaders();
-        if(token != "") {
+        if(!Objects.equals(token, "")) {
             headers.add("token", token);
-            return ResponseEntity.ok().headers(headers).body("Login efetuado com sucesso");
+            return ResponseEntity.ok().headers(headers).body(usuario);
         } else {
             return ResponseEntity.badRequest().body("N]ao foi possivel efetuar o login");
         }

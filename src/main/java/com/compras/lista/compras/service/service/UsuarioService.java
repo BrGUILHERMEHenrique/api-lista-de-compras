@@ -59,6 +59,10 @@ public class UsuarioService {
         return u.get();
     }
 
+    public Usuario findByEmail(String email){
+        return usuarioRepository.findByEmail(email);
+    }
+
     public boolean delete(Long id){
         try {
             usuarioRepository.deleteById(id);
