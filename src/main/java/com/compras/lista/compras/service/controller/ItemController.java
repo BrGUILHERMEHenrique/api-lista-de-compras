@@ -19,7 +19,7 @@ public class ItemController {
         return ResponseEntity.ok(service.findById(id));
     }
 
-    @GetMapping("/{idLista}")
+    @GetMapping("/porLista/{idLista}")
     public ResponseEntity<?> recuperarTodos(@PathVariable Long idLista) throws NotFoundException {
         return ResponseEntity.ok(service.findByLista(idLista));
     }
