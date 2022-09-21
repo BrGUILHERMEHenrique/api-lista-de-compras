@@ -19,6 +19,9 @@ public class Item {
     @Column
     private Double preco;
 
+    @Column
+    private Boolean comprado;
+
     @ManyToOne
     @JoinColumn(name = "id_lista")
     Lista lista;
@@ -30,12 +33,21 @@ public class Item {
     public Item() {
     }
 
-    public Item(Long id, String nome, int qtd, Double preco, Lista lista) {
+    public Item(Long id, String nome, int qtd, Double preco, Boolean comprado, Lista lista) {
         this.id = id;
         this.nome = nome;
         this.qtd = qtd;
         this.preco = preco;
+        this.comprado = comprado;
         this.lista = lista;
+    }
+
+    public Boolean getComprado() {
+        return comprado;
+    }
+
+    public void setComprado(Boolean comprado) {
+        this.comprado = comprado;
     }
 
     public Long getId() {

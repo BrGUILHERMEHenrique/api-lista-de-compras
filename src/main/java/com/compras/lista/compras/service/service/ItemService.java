@@ -61,6 +61,7 @@ public class ItemService {
         if (item.getNome() != null) itemAtualizado.setNome(item.getNome());
         if (item.getPreco() != null) itemAtualizado.setPreco(item.getPreco());
         if (item.getQtd() != 0) itemAtualizado.setQtd(item.getQtd());
+        if (item.getComprado() != null) itemAtualizado.setComprado(item.getComprado());
 
         // TODO Implementar proteçao usando o equals
         return itemRepository.save(itemAtualizado);
