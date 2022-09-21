@@ -25,6 +25,11 @@ public class UsuarioController {
         return usuarioService.findAll();
     }
 
+    @GetMapping("/email")
+    public Usuario getByEmail(@RequestBody String email){
+        return usuarioService.findByEmail(email);
+    }
+
     @PostMapping("/cadastrar")
     public ResponseEntity save(@RequestBody Usuario usuario) throws Exception {
         return ResponseEntity.ok(usuarioService.createUsuario(usuario));
