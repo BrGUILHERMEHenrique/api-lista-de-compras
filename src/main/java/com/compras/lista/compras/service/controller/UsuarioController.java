@@ -25,7 +25,7 @@ public class UsuarioController {
         return usuarioService.findAll();
     }
 
-    @GetMapping("/email")
+    @PostMapping("/email")
     public Usuario getByEmail(@RequestBody String email){
         return usuarioService.findByEmail(email);
     }
